@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMart Electronics - Business Analytics Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-microchip"></i>
+                <span>TechMart Analytics</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-secondary" id="exportBtn">
+                    <i class="fas fa-download"></i> Export
+                </button>
+                <button class="btn-primary" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>TechMart Dashboard</h3>
+                <p>Electronics & E-commerce</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active" data-section="overview">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="#sales" class="nav-item" data-section="sales">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Sales Analytics</span>
+                </a>
+                <a href="#revenue" class="nav-item" data-section="revenue">
+                    <i class="fas fa-dollar-sign"></i>
+                    <span>Revenue</span>
+                </a>
+                <a href="#customers" class="nav-item" data-section="customers">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+                <a href="#products" class="nav-item" data-section="products">
+                    <i class="fas fa-box"></i>
+                    <span>Products</span>
+                </a>
+                <a href="#reports" class="nav-item" data-section="reports">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Reports</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section id="overview" class="dashboard-section active">
+                <div class="section-header">
+                    <h2>Business Overview</h2>
+                    <div class="date-picker">
+                        <i class="fas fa-calendar"></i>
+                        <select id="periodSelect">
+                            <option value="7">Last 7 Days</option>
+                            <option value="30" selected>Last 30 Days</option>
+                            <option value="90">Last 90 Days</option>
+                            <option value="365">Last Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Total Revenue</h3>
+                            <p class="kpi-value">$2,847,500</p>
+                            <span class="kpi-change positive">
+                                <i class="fas fa-arrow-up"></i> 18.7%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Total Sales</h3>
+                            <p class="kpi-value">15,680</p>
+                            <span class="kpi-change positive">
+                                <i class="fas fa-arrow-up"></i> 12.3%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>New Customers</h3>
+                            <p class="kpi-value">1,240</p>
+                            <span class="kpi-change positive">
+                                <i class="fas fa-arrow-up"></i> 15.2%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Growth Rate</h3>
+                            <p class="kpi-value">18.7%</p>
+                            <span class="kpi-change positive">
+                                <i class="fas fa-arrow-up"></i> 5.1%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Revenue Trend</h3>
+                            <div class="chart-actions">
+                                <button class="btn-icon" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn-icon" title="Full Screen">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Sales Distribution</h3>
+                            <div class="chart-actions">
+                                <button class="btn-icon" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn-icon" title="Full Screen">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-section">
+                    <div class="section-header">
+                        <h3>Recent Activity</h3>
+                        <button class="btn-secondary">View All</button>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>New Order #TM-2024-001</h4>
+                                <p>Customer: Sarah Johnson - iPhone 15 Pro + AirPods Pro</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>New Customer Registration</h4>
+                                <p>Michael Chen - Premium Account</p>
+                                <span class="activity-time">4 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Low Stock Alert</h4>
+                                <p>AirPods Pro - Only 12 units remaining</p>
+                                <span class="activity-time">6 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sales Analytics Section -->
+            <section id="sales" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Sales Analytics</h2>
+                </div>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Top Performing Products</h3>
+                        <div class="product-list">
+                            <div class="product-item">
+                                <span class="product-name">iPhone 15 Pro</span>
+                                <span class="product-sales">$285,000</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="product-item">
+                                <span class="product-name">MacBook Air M2</span>
+                                <span class="product-sales">$245,000</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 86%"></div>
+                                </div>
+                            </div>
+                            <div class="product-item">
+                                <span class="product-name">Samsung Galaxy S24</span>
+                                <span class="product-sales">$198,000</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 69%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Sales by Region</h3>
+                        <canvas id="regionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Revenue Section -->
+            <section id="revenue" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Revenue Analysis</h2>
+                </div>
+                <div class="revenue-grid">
+                    <div class="revenue-card">
+                        <h3>Monthly Revenue</h3>
+                        <canvas id="monthlyRevenueChart"></canvas>
+                    </div>
+                    <div class="revenue-card">
+                        <h3>Revenue Sources</h3>
+                        <canvas id="revenueSourcesChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customers Section -->
+            <section id="customers" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Customer Analytics</h2>
+                </div>
+                <div class="customer-grid">
+                    <div class="customer-card">
+                        <h3>Customer Demographics</h3>
+                        <canvas id="demographicsChart"></canvas>
+                    </div>
+                    <div class="customer-card">
+                        <h3>Customer Lifetime Value</h3>
+                        <canvas id="clvChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Product Performance</h2>
+                </div>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <h3>Inventory Status</h3>
+                        <div class="inventory-list">
+                            <div class="inventory-item">
+                                <span>iPhone 15 Pro</span>
+                                <span class="stock-status in-stock">In Stock (125)</span>
+                            </div>
+                            <div class="inventory-item">
+                                <span>MacBook Air M2</span>
+                                <span class="stock-status in-stock">In Stock (89)</span>
+                            </div>
+                            <div class="inventory-item">
+                                <span>AirPods Pro</span>
+                                <span class="stock-status low-stock">Low Stock (12)</span>
+                            </div>
+                            <div class="inventory-item">
+                                <span>iPad Air</span>
+                                <span class="stock-status out-of-stock">Out of Stock</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <h3>Product Categories</h3>
+                        <canvas id="categoriesChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Reports & Analytics</h2>
+                    <button class="btn-primary">Generate Report</button>
+                </div>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-file-excel"></i>
+                        </div>
+                        <h3>Sales Report</h3>
+                        <p>Comprehensive sales analysis with charts and insights for TechMart Electronics</p>
+                        <button class="btn-secondary">Download Excel</button>
+                    </div>
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3>Revenue Report</h3>
+                        <p>Detailed revenue breakdown and forecasting for electronics business</p>
+                        <button class="btn-secondary">Download Excel</button>
+                    </div>
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Customer Report</h3>
+                        <p>Customer behavior analysis and segmentation for e-commerce</p>
+                        <button class="btn-secondary">Download Excel</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html> 

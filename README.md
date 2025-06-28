@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Personal Portfolio Website
 
 A modern, responsive personal portfolio website showcasing my skills, projects, and services in web development and business analytics.
@@ -92,3 +93,6 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 **Note**: This portfolio is actively maintained and updated with new projects and skills. Feel free to reach out for collaboration opportunities! 
+=======
+# portfolio
+>>>>>>> 8d652545985791f3c621e8185b372c64fcecea50
